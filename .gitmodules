@@ -1,3 +1,6 @@
 [submodule "stats/minecraftstatus"]
 	path = stats/minecraftstatus
 	url = https://github.com/markfickett/minecraftstatus.git
+[submodule "overviewer"]
+	path = overviewer
+	url = https://github.com/markfickett/Minecraft-Overviewer.git

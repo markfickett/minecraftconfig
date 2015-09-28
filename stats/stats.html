@@ -1,0 +1,30 @@
+<html>
+<head>
+  <title>Temperature and Minecraft Graphs</title>
+  <link rel="stylesheet" type="text/css" href="stats.css" />
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/dygraph/1.1.0/dygraph-combined.js"></script>
+  <script src="synchronizer.js"></script>
+  <script src="d3.v3.min.js"></script>
+  <script src="stats.js"></script>
+</head>
+<body>
+  <h1>Time-Series Temperatures & Crafters Counts</h1>
+  <p>Rendered using <a href="http://dygraphs.com/">dygraph</a>. Drag and select to zoom in, double-click to zoom back out.</p>
+  <div id="temperatures"></div>
+  <div id="crafters"></div>
+
+  <h1>Crafting Frequency</h1>
+  <p>Color = probability that anyone is online. Size = mean # online (when anyone is online). Based on <a href="http://bl.ocks.org/tjdecke/5558084">Day/Hour Heatmap Example</a>.</p>
+  <p>Eastern Daylight Time.</p>
+  <h2>Last 2 Weeks</h2>
+  <div id="recent-chart"></div>
+  <h2>All Time</h2>
+  <div id="all-chart"></div>
+
+  <script type="text/javascript">
+    renderDygraphs();
+    loadHourDayChart(false, "#all-chart");
+    loadHourDayChart(true, "#recent-chart");
+  </script>
+</body>
+</html>

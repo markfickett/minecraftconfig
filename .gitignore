@@ -1,0 +1,13 @@
+arduino/
+minecraft_server.jar
+server/banned-ips.json
+server/banned-players.json
+server/eula.txt
+server/icons/
+server/logs/
+server/ops.json
+server/server-icon.png
+server/usercache.json
+server/whitelist.json
+server/world/
+serverjars/

@@ -24,6 +24,7 @@ SENSORS_ITEM_GROUP_NUM = 1
 SENSORS_TEMP_GROUP_NUM = 2
 
 MINECRAFT_CSV_PATH = os.path.join(HTML_DIR, 'crafters.csv')
+UP_MINECRAFT_CSV_PATH = os.path.join(HTML_DIR, 'upcrafters.csv')
 
 
 def GetTemperatureData(formatted_now):
@@ -96,8 +97,6 @@ def UpdateCsv(path, ordered_dict):
 
 
 if __name__ == '__main__':
-  server = mcstatus.McServer('localhost')
-  server.Update()
   now = datetime.datetime.utcnow().isoformat()
   try:
     UpdateCsv(TEMPERATURE_CSV_PATH, GetTemperatureData(now))
@@ -105,4 +104,11 @@ if __name__ == '__main__':
     logging.error(
         'Error getting HD temps. Run hddtemp -d /dev/sd[abc] ?',
         exc_info=True)
+
+  server = mcstatus.McServer('localhost')
+  server.Update()
   UpdateCsv(MINECRAFT_CSV_PATH, GetMinecraftData(server, now))
+
+  up_server = mcstatus.McServer('localhost', port=25555)
+  up_server.Update()
+  UpdateCsv(UP_MINECRAFT_CSV_PATH, GetMinecraftData(up_server, now))

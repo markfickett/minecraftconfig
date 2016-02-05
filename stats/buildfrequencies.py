@@ -39,12 +39,16 @@ def MakeFrequencyContainer():
 
 
 def FillFrequencies(time_series_reader, frequencies, now, max_age_days):
-  for timestamp_str, count in time_series_reader:
+  for row_num, (timestamp_str, count) in enumerate(time_series_reader):
+    if timestamp_str is 'Time':
+      print 'skipping header:', timestamp_str
+      continue
     try:
       timestamp = datetime.datetime.strptime(
           timestamp_str, '%Y-%m-%dT%H:%M:%S.%f')
     except ValueError, e:
-      print 'skipping', timestamp_str, e
+      print 'Timestamp error on line %d parsing %r:\n%s' % (
+          row_num, timestamp_str, e)
       continue
     if max_age_days and (now - timestamp) > max_age_days:
       continue

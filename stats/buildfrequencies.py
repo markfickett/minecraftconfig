@@ -39,20 +39,24 @@ def MakeFrequencyContainer():
 
 
 def FillFrequencies(time_series_reader, frequencies, now, max_age_days):
-  for row_num, (timestamp_str, count) in enumerate(time_series_reader):
-    if timestamp_str is 'Time':
-      print 'skipping header:', timestamp_str
-      continue
-    try:
-      timestamp = datetime.datetime.strptime(
-          timestamp_str, '%Y-%m-%dT%H:%M:%S.%f')
-    except ValueError, e:
-      print 'Timestamp error on line %d parsing %r:\n%s' % (
-          row_num, timestamp_str, e)
-      continue
-    if max_age_days and (now - timestamp) > max_age_days:
-      continue
-    frequencies[timestamp.weekday()][timestamp.hour].counts.append(int(count))
+  try:
+    for timestamp_str, count in time_series_reader:
+      if timestamp_str == 'Time':
+        print 'skipping header:', timestamp_str
+        continue
+      try:
+        timestamp = datetime.datetime.strptime(
+            timestamp_str, '%Y-%m-%dT%H:%M:%S.%f')
+      except ValueError, e:
+        print 'Timestamp error on line %d parsing %r:\n%s' % (
+            time_series_reader.line_num, timestamp_str, e)
+        continue
+      if max_age_days and (now - timestamp) > max_age_days:
+        continue
+      frequencies[timestamp.weekday()][timestamp.hour].counts.append(int(count))
+  except csv.Error, e:
+    print 'Reader error on line %d' % time_series_reader.line_num
+    raise
 
 
 def WriteFrequencies(frequencies_writer, frequencies):

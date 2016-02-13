@@ -105,9 +105,9 @@ function onDataLoaded(parentElementId, error, data) {
     .attr("y", height + gridSize);
 }
 
-function loadHourDayChart(recent, parentElementId) {
+function loadHourDayChart(csvFile, parentElementId) {
   d3.csv(
-      "crafters-frequency" + (recent ? "-recent" : "") + ".csv",
+      csvFile,
       filterData,
       onDataLoaded.bind(undefined, parentElementId));
 }
@@ -136,7 +136,15 @@ function renderDygraphs() {
     {
       'height': 200,
       'width': 1000,
-      'ylabel': 'Logged-In Players'
+      'ylabel': 'Logged-In Players: Naib'
+    }));
+  graphs.push(new Dygraph(
+    document.getElementById("upcrafters"),
+    "upcrafters.csv",
+    {
+      'height': 200,
+      'width': 1000,
+      'ylabel': 'Logged-In Players: UP'
     }));
   var sync = Dygraph.synchronize(graphs, {'range': false});
 }

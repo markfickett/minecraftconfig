@@ -52,6 +52,8 @@ def AddSensorsData(data, sensors_output):
     if ':' not in line:
       section_name = line
       continue
+    if section_name == 'acpitz-virtual-0':
+      continue
     re_match = SENSORS_LINE_PATTERN.match(line)
     if not re_match:
       continue

@@ -124,7 +124,6 @@ function renderDygraphs() {
       'width': 1000,
       'ylabel': 'Internal Temperatures (C)',
       'colors': [
-        '#50A', '#00A', /* ACPIs */
         '#0A0', '#3A0', '#0A3', '#3A3', '#5A0', /* CPU cores */
         '#389', /* PCI */
         '#F94', '#E74', '#E36', /* drives */
@@ -132,7 +131,7 @@ function renderDygraphs() {
     }));
   graphs.push(new Dygraph(
     document.getElementById("crafters"),
-    "crafters.csv",
+    "crafters-simplified.csv",
     {
       'height': 200,
       'width': 1000,
@@ -140,7 +139,7 @@ function renderDygraphs() {
     }));
   graphs.push(new Dygraph(
     document.getElementById("upcrafters"),
-    "upcrafters.csv",
+    "upcrafters-simplified.csv",
     {
       'height': 200,
       'width': 1000,

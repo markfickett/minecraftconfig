@@ -116,9 +116,12 @@ function loadHourDayChart(csvFile, parentElementId) {
 
 var graphs = [];
 function renderDygraphs() {
+  var aMonthAgo = new Date();
+  aMonthAgo.setMonth(aMonthAgo.getMonth() - 1);
+  var dateWindow = [aMonthAgo, new Date()];
   graphs.push(new Dygraph(
     document.getElementById("temperatures"),
-    "temperatures.csv",
+    "temperatures-simplified.csv",
     {
       'height': 400,
       'width': 1000,
@@ -128,6 +131,7 @@ function renderDygraphs() {
         '#389', /* PCI */
         '#F94', '#E74', '#E36', /* drives */
       ],
+      'dateWindow': dateWindow
     }));
   graphs.push(new Dygraph(
     document.getElementById("crafters"),
@@ -135,7 +139,8 @@ function renderDygraphs() {
     {
       'height': 200,
       'width': 1000,
-      'ylabel': 'Logged-In Players: Naib'
+      'ylabel': 'Logged-In Players: Naib',
+      'dateWindow': dateWindow
     }));
   graphs.push(new Dygraph(
     document.getElementById("upcrafters"),
@@ -143,7 +148,8 @@ function renderDygraphs() {
     {
       'height': 200,
       'width': 1000,
-      'ylabel': 'Logged-In Players: UP'
+      'ylabel': 'Logged-In Players: UP',
+      'dateWindow': dateWindow
     }));
   var sync = Dygraph.synchronize(graphs, {'range': false});
 }
